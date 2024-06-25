@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 /// A view that adds navigation capabilities to a whole view hierarchy.
 /// Add only one `NavigationView` per view hierarchy.
@@ -161,3 +162,74 @@ extension NavigationLink: Renderable {
         }
     }
 }
+
+@available(iOS 13.0, *)
+public struct NavigationSwiftUILink: View {
+    public var viewStore = ViewValues()
+    public var body: View {
+        EmptyView()
+    }
+    
+    let contentView: View
+    var destination: AnyView?
+    var isActive: Binding<Bool>?
+    
+    public init(destination: AnyObject?, @ViewBuilder label: () -> View) {
+        contentView = label().subViews.first ?? EmptyView()
+        if let destination = destination as? AnyView {
+            self.destination = destination
+        }
+    }
+    
+}
+
+@available(iOS 13.0, *)
+extension NavigationSwiftUILink: Renderable {
+    public func createView(context: Context) -> UIView {
+        let paddingView = SwiftUIPaddingView().noAutoresizingMask()
+        
+        context.viewOperationQueue.addOperation {
+            let button = self.linkButton(context: context).renderableView(parentContext: context, drainRenderQueue: false) ?? UIView()
+            paddingView.content = button
+        }
+        
+        return paddingView
+    }
+    
+    public func updateView(_ view: UIView, context: Context) {
+        guard let view = view as? SwiftUIPaddingView else { return }
+        
+        if let content = view.content {
+            linkButton(context: context).scheduleUpdateRender(uiView: content, parentContext: context)
+        }
+        if let isActive = isActive, let destination = self.destination as? View {
+            if isActive.wrappedValue {
+                if !(view.hasPushedView ?? false) {
+                    view.hasPushedView = true
+                    context.rootController?.navigateToView(destination, context: context, onPop: {
+                        view.hasPushedView = false
+                        isActive.wrappedValue = false
+                    })
+                }
+            } else if let hasPushedView = view.hasPushedView, hasPushedView {
+                view.hasPushedView = false
+                context.rootController?.popView()
+            }
+        }
+    }
+    
+    private func linkButton(context: Context) -> Button {
+        Button(action: {
+            if let isActive = self.isActive {
+                isActive.wrappedValue = true
+            } else {
+                if let destination = self.destination as? View {
+                    context.rootController?.navigateToView(destination, context: context)
+                }
+            }
+        }) { () -> View in
+            contentView
+        }
+    }
+}
+
