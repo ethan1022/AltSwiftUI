@@ -16,7 +16,7 @@ import UIKit
 /// When using UIKit views, it's possible to interact with a AltSwiftUI views by
 /// passing a UIHostingController that contains a `View` hierarchy.
 ///
-open class UIHostingController: UINavigationController {
+open class AltHostingController: UINavigationController {
     /// Overrides the behavior of the current interactivePopGesture and enables/disables it accordingly.
     /// This property is `true` by default.
     /// - important: Not SwiftUI compatible.
@@ -72,17 +72,17 @@ open class UIHostingController: UINavigationController {
     }
 }
 
-extension UIHostingController: UINavigationControllerDelegate {
+extension AltHostingController: UINavigationControllerDelegate {
     public func navigationController(
         _ navigationController: UINavigationController,
         didShow viewController: UIViewController,
         animated: Bool) {
         
-        (navigationController as? UIHostingController)?.duringPushAnimation = false
+        (navigationController as? AltHostingController)?.duringPushAnimation = false
     }
 }
 
-extension UIHostingController: UIGestureRecognizerDelegate {
+extension AltHostingController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard gestureRecognizer == interactivePopGestureRecognizer else { return true }
 

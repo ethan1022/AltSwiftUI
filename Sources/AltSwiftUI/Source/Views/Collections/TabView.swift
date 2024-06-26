@@ -38,7 +38,7 @@ public struct TabView: AltView {
 
 extension TabView: Renderable {
     public func createView(context: Context) -> UIView {
-        let controller = UIHostingController.customRootTabBarController
+        let controller = AltHostingController.customRootTabBarController
         var viewControllers = [UIViewController]()
         for (index, view) in content.enumerated() {
             var modifiedView = view
@@ -46,7 +46,7 @@ extension TabView: Renderable {
                 modifiedView.viewStore.tag = index
             }
             let screenController = ScreenViewController(contentView: modifiedView, parentContext: context)
-            viewControllers.append(UIHostingController(rootViewController: screenController))
+            viewControllers.append(AltHostingController(rootViewController: screenController))
         }
         controller.viewControllers = viewControllers
         updateController(controller)

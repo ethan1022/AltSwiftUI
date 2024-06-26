@@ -26,7 +26,7 @@ class ScreenViewController: UIViewController {
     var background: UIColor?
     lazy var lazyLayoutConstraints: [NSLayoutConstraint] = []
     var navigationBarTint: UIColor?
-    weak var hostingController: UIHostingController?
+    weak var hostingController: AltHostingController?
     
     private var isNavigationController: Bool
     private var presenter: SwiftUIPresenter?
@@ -244,7 +244,7 @@ class ScreenViewController: UIViewController {
         }
     }
     private func setupNavigation() {
-        hostingController = navigationController as? UIHostingController
+        hostingController = navigationController as? AltHostingController
         if !isNavigationController {
             navigationController?.setNavigationBarHidden(true, animated: false)
         }
@@ -274,7 +274,7 @@ extension UIViewController {
                                       parentContext: Context(viewValues: viewValues),
                                       isNavigationController: false,
                                       isNavigating: true)
-        let hostingVc = UIHostingController(rootViewController: vc)
+        let hostingVc = AltHostingController(rootViewController: vc)
         hostingVc.sheetPresentation = sheetPresentation
         if sheetPresentation.isFullScreen {
             hostingVc.modalPresentationStyle = .fullScreen
@@ -283,7 +283,7 @@ extension UIViewController {
         present(hostingVc, animated: true)
     }
     func dismissPresentedView(sheetPresentation: SheetPresentation) {
-        if let presentedVC = presentedViewController as? UIHostingController,
+        if let presentedVC = presentedViewController as? AltHostingController,
            let sheetVC = presentedVC.topViewController as? ScreenViewController,
             !presentedVC.isBeingDismissed,
             presentedVC.sheetPresentation?.id == sheetPresentation.id {

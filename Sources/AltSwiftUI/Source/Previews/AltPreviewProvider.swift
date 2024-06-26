@@ -58,7 +58,7 @@ struct PreviewProviderViewCRepresentable: SwiftUI.UIViewControllerRepresentable 
     public typealias UIViewControllerType = UIViewController
     
     public func makeUIViewController(context: SwiftUI.UIViewControllerRepresentableContext<PreviewProviderViewCRepresentable>) -> UIViewController {
-        UIHostingController(rootView: contentView)
+        AltHostingController(rootView: contentView)
     }
     
     public func updateUIViewController(_ uiViewController: UIViewController, context: SwiftUI.UIViewControllerRepresentableContext<PreviewProviderViewCRepresentable>) {
