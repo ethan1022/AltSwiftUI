@@ -9,13 +9,13 @@
 import UIKit
 
 /// A view that can be turned on and off.
-public struct Toggle: View {
+public struct Toggle: AltView {
     public var viewStore = ViewValues()
     let isOn: Binding<Bool>
-    let label: View
+    let label: AltView
     
     /// Creates an instance of a toggle.
-    public init(isOn: Binding<Bool>, @ViewBuilder label: () -> View) {
+    public init(isOn: Binding<Bool>, @ViewBuilder label: () -> AltView) {
         self.isOn = isOn
         self.label = label()
     }
@@ -23,7 +23,7 @@ public struct Toggle: View {
         self.isOn = isOn
         label = Text(title)
     }
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 }

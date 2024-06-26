@@ -13,7 +13,7 @@ import UIKit
 /// By default, a `Color` that is directly rendered in a view hierarchy
 /// will expand both horizontally and vertically infinitely as much as
 /// its parent view allows it to.
-public struct Color: View {
+public struct Color: AltView {
     public var viewStore = ViewValues()
     
     /// Stores the original color held by this view
@@ -52,7 +52,7 @@ public struct Color: View {
         return view
     }
     
-    public var body: View {
+    public var body: AltView {
         self
     }
 }

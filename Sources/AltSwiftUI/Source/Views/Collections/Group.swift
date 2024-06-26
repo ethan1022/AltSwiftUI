@@ -13,13 +13,13 @@ import Foundation
 /// any way.
 ///
 /// Use this when the number of elements inside a `ViewBuilder` exceeds the limit.
-public struct Group: View, ViewGrouper {
+public struct Group: AltView, ViewGrouper {
     public var viewStore = ViewValues()
-    var viewContent: [View]
-    public init(@ViewBuilder content: () -> View) {
+    var viewContent: [AltView]
+    public init(@ViewBuilder content: () -> AltView) {
         viewContent = content().subViews
     }
-    public var body: View {
+    public var body: AltView {
         viewContent.first ?? EmptyView()
     }
 }

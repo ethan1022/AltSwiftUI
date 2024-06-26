@@ -29,7 +29,7 @@ open class UIHostingController: UINavigationController {
     /// Indicates if a UIViewController is currently being pushed onto this navigation controller
     private var duringPushAnimation = false
     
-    public init(rootView: View, background: UIColor? = nil) {
+    public init(rootView: AltView, background: UIColor? = nil) {
         let controller = ScreenViewController(contentView: rootView, background: background)
         super.init(rootViewController: controller)
         setupNavigation()

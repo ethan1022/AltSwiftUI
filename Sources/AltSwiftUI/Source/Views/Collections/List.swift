@@ -21,12 +21,12 @@ public struct ListVisibleRow {
 }
 
 /// A list of elements that creates each subview on demand.
-public struct List<Content: View, Data, ID: Hashable>: View {
+public struct List<Content: AltView, Data, ID: Hashable>: AltView {
     public var viewStore = ViewValues()
-    public var body: View { EmptyView() }
+    public var body: AltView { EmptyView() }
     var sections: [Section]?
     var data: [Data]?
-    var rowBuilder: ((Data) -> View)?
+    var rowBuilder: ((Data) -> AltView)?
     var contentOffset: Binding<CGPoint>?
     var rowHeight: CGFloat?
     var isAlwaysReloadData = false
@@ -44,14 +44,14 @@ public struct List<Content: View, Data, ID: Hashable>: View {
     var appliedVisibleRow: Binding<ListVisibleRow?>?
     var keyboardDismissMode: UIScrollView.KeyboardDismissMode?
     
-    public init(@ViewBuilder content: () -> View) where Content == Text, Data == String, ID == String {
+    public init(@ViewBuilder content: () -> AltView) where Content == Text, Data == String, ID == String {
         let contentResult = content()
         self.init(sections: contentResult.originalSubViews.totallyFlatGroupedBySection())
     }
 
     /// Creates a List that identifies its rows based on the `id` key path to a
     /// property on an underlying data element.
-    public init(_ data: [Data], id: KeyPath<Data, ID>, @ViewBuilder rowContent: @escaping (Data) -> View) where Content == ForEach<[Data], ID, HStack> {
+    public init(_ data: [Data], id: KeyPath<Data, ID>, @ViewBuilder rowContent: @escaping (Data) -> AltView) where Content == ForEach<[Data], ID, HStack> {
         self.data = data
         self.rowBuilder = rowContent
         self.idKeyPath = id
@@ -220,7 +220,7 @@ public struct List<Content: View, Data, ID: Hashable>: View {
 extension List where Data: Identifiable, Content == ForEach<[Data], String, HStack>, ID == Data.ID {
     /// Creates a List that computes its rows on demand from an underlying
     /// collection of identified data.
-    public init(_ data: [Data], @ViewBuilder rowContent: @escaping (Data) -> View) {
+    public init(_ data: [Data], @ViewBuilder rowContent: @escaping (Data) -> AltView) {
         self.data = data
         self.rowBuilder = rowContent
         self.idKeyPath = \Data.id
@@ -235,7 +235,7 @@ extension List where Data == Int, Content == ForEach<[Data], Int, HStack>, ID ==
     ///
     /// To compute views on demand over a dynamic range use
     /// `List(_:id:content:)`.
-    public init(_ data: Range<Int>, @ViewBuilder rowContent: @escaping (Int) -> View) {
+    public init(_ data: Range<Int>, @ViewBuilder rowContent: @escaping (Int) -> AltView) {
         self.init(Array(data), id: \.self, rowContent: rowContent)
     }
 }
@@ -401,7 +401,7 @@ extension List: Renderable {
 
 // MARK: - Supporting Types
 
-class GenericTableViewDelegate<Content: View, Data, ID: Hashable>: NSObject, UITableViewDelegate, UITableViewDataSource {
+class GenericTableViewDelegate<Content: AltView, Data, ID: Hashable>: NSObject, UITableViewDelegate, UITableViewDataSource {
     typealias ParentList = List<Content, Data, ID>
     var list: ParentList
     var context: Context
@@ -429,7 +429,7 @@ class GenericTableViewDelegate<Content: View, Data, ID: Hashable>: NSObject, UIT
         self.context = context
     }
     
-    func viewForIndex(section: Int, row: Int) -> View {
+    func viewForIndex(section: Int, row: Int) -> AltView {
         if let data = list.data, let builder = list.rowBuilder {
             return builder(data[row])
         } else if let sections = list.sections {
@@ -592,13 +592,13 @@ extension UITableViewCell {
     }
 }
 
-struct Section: View {
+struct Section: AltView {
     public var viewStore = ViewValues()
-    var header: View?
-    var footer: View?
-    var viewContent: [View]
+    var header: AltView?
+    var footer: AltView?
+    var viewContent: [AltView]
     
-    public init(header: View? = nil, footer: View? = nil, @ViewBuilder _ content: () -> View) {
+    public init(header: AltView? = nil, footer: AltView? = nil, @ViewBuilder _ content: () -> AltView) {
         viewContent = content().subViews
         self.header = header
         self.footer = footer
@@ -608,11 +608,11 @@ struct Section: View {
         viewContent = []
     }
     
-    init(views: [View]) {
+    init(views: [AltView]) {
         self.viewContent = views
     }
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 }

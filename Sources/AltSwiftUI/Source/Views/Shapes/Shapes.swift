@@ -47,7 +47,7 @@ class AltShapeView: UIView {
     }
 }
 
-public protocol Shape: View, Renderable {
+public protocol Shape: AltView, Renderable {
     var fillColor: Color { get set }
     var strokeBorderColor: Color { get set }
     var style: StrokeStyle { get set }

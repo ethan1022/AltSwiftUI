@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view that represents a read only text
-public struct Text: View {
+public struct Text: AltView {
     public var viewStore = ViewValues()
     public var string: String
     private var combinedTexts: [Text]?
@@ -57,7 +57,7 @@ public struct Text: View {
         self.string = ""
     }
     
-    public var body: View {
+    public var body: AltView {
         self
     }
     

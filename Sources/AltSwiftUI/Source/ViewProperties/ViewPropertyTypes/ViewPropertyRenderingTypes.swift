@@ -146,7 +146,7 @@ public struct Font {
 /// A type that contains the configuration of a button style.
 public struct ButtonStyleConfiguration {
     /// A view that describes the effect of toggling `isPressed`.
-    public let label: View
+    public let label: AltView
 
     /// Whether or not the button is currently being pressed down by the user.
     public let isPressed: Bool
@@ -155,7 +155,7 @@ public struct ButtonStyleConfiguration {
 /// A type that specifies how the style of a button is changed.
 public protocol ButtonStyle {
     /// Returns a modified version of the Button's label
-    func makeBody(configuration: Self.Configuration) -> View
+    func makeBody(configuration: Self.Configuration) -> AltView
 
     /// The properties of a `Button` instance being created.
     typealias Configuration = ButtonStyleConfiguration
@@ -166,9 +166,9 @@ public protocol ViewModifier {
     /// Returns the current body of `self`. `content` is a proxy for
     /// the view that will have the modifier represented by `Self`
     /// applied to it.
-    func body(content: Content) -> View
+    func body(content: Content) -> AltView
     
-    typealias Content = View
+    typealias Content = AltView
 }
 
 /// A type representing a geometry angle.

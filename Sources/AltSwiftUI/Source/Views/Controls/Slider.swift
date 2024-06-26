@@ -10,12 +10,12 @@ import UIKit
 
 /// A view that displays a range of values, and a knob that allows selecting
 /// a value in the range.
-public struct Slider: View {
+public struct Slider: AltView {
     public var viewStore = ViewValues()
     let value: Binding<Float>
     let bounds: ClosedRange<Float>
     var step: Float?
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     

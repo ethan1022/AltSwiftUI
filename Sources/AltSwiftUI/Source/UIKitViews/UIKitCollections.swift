@@ -187,7 +187,7 @@ class SwiftUIStackView: UIStackView, UIKitViewHandler {
         arrangedSubviews.count - hiddenSubviewsCount
     }
     
-    func addViews(_ views: [View], context: Context, isEquallySpaced: @escaping (View) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
+    func addViews(_ views: [AltView], context: Context, isEquallySpaced: @escaping (AltView) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
         context.viewOperationQueue.addOperation { [weak self] in
             guard let `self` = self else { return }
             var equalViews = [UIView]()
@@ -206,11 +206,11 @@ class SwiftUIStackView: UIStackView, UIKitViewHandler {
             }
         }
     }
-    func updateFirstView(view: View, context: Context) {
+    func updateFirstView(view: AltView, context: Context) {
         guard let firstUIView = arrangedSubviews.first else { return }
         view.scheduleUpdateRender(uiView: firstUIView, parentContext: context)
     }
-    func updateViews(_ views: [View], oldViews: [View], context: Context, isEquallySpaced: @escaping (View) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
+    func updateViews(_ views: [AltView], oldViews: [AltView], context: Context, isEquallySpaced: @escaping (AltView) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
         context.viewOperationQueue.addOperation { [weak self] in
             guard let `self` = self else { return }
             
@@ -329,7 +329,7 @@ class SwiftUILazyStackView: SwiftUIStackView {
     var lastContext: Context?
     weak var lazyStackScrollView: UIScrollView?
     /// Content views totally flattened with optional view information
-    var lazyStackFlattenedContentViews: [View] = []
+    var lazyStackFlattenedContentViews: [AltView] = []
     var insertLazyContentOnFirstLayout = false
     var lastInsertedIndex: Int {
         nonHiddenSubviewsCount - 1
@@ -417,7 +417,7 @@ class SwiftUILazyStackView: SwiftUIStackView {
     
     /// Updates loaded views and insert views if resulting content size
     /// is less than the content size + visible area.
-    func updateLazyStack(newViews: [View], isEquallySpaced: @escaping (View) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
+    func updateLazyStack(newViews: [AltView], isEquallySpaced: @escaping (AltView) -> Bool, setEqualDimension: @escaping (UIView, UIView) -> Void) {
         guard let lastContext = lastContext else {
             return
         }

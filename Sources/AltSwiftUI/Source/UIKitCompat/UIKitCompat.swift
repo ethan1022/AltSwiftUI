@@ -24,7 +24,7 @@ public struct UIViewControllerRepresentableContext<Representable> where Represen
 }
 
 /// Use this protocol to create a custom `View` that represents a `UIViewController`.
-public protocol UIViewControllerRepresentable: View, Renderable {
+public protocol UIViewControllerRepresentable: AltView, Renderable {
     associatedtype UIViewControllerType: UIViewController
     typealias UIContext = UIViewControllerRepresentableContext<Self>
     associatedtype Coordinator = Void
@@ -48,7 +48,7 @@ extension UIViewControllerRepresentable where Coordinator == Void {
 }
 
 extension UIViewControllerRepresentable {
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     public func createView(context: Context) -> UIView {
@@ -89,7 +89,7 @@ public struct UIViewRepresentableContext<Representable> where Representable: UIV
 }
 
 /// Use this protocol to create a custom `View` that represents a `UIView`.
-public protocol UIViewRepresentable: View, Renderable {
+public protocol UIViewRepresentable: AltView, Renderable {
     associatedtype UIViewType: UIView
     typealias UIContext = UIViewRepresentableContext<Self>
     associatedtype Coordinator = Void
@@ -113,7 +113,7 @@ extension UIViewRepresentable where Coordinator == Void {
 }
 
 extension UIViewRepresentable {
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     public func createView(context: Context) -> UIView {

@@ -10,7 +10,7 @@ import UIKit
 
 /// A view that displays a wheel-style date picker that allows selecting
 /// a date in the range.
-public struct DatePicker: View {
+public struct DatePicker: AltView {
     public var viewStore = ViewValues()
 
     var selection: Binding<Date>?
@@ -28,7 +28,7 @@ public struct DatePicker: View {
     
     public typealias Components = [DatePickerComponent]
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     

@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol LazyStack: Renderable, View {
-    var viewContentBuilder: () -> View { get }
+protocol LazyStack: Renderable, AltView {
+    var viewContentBuilder: () -> AltView { get }
     var spacing: CGFloat { get }
     var noPropertiesStack: Stack { get }
     var scrollAxis: Axis { get }

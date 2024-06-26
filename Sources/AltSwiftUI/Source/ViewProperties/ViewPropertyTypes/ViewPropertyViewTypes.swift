@@ -103,7 +103,7 @@ public struct ActionSheet {
 /// - SeeAlso: `View.contextMenu`, which attaches a `ContextMenu` to a `View`.
 @available(tvOS, unavailable)
 public struct ContextMenu {
-    let items: [View]
+    let items: [AltView]
     
     /// __Important__: Only Buttons with `Image` or `Text` are allowed as items.
     /// The following 3 view combinations are allowed for building a contextual menu:
@@ -121,7 +121,7 @@ public struct ContextMenu {
     ///             Image()
     ///         }
     ///     }
-    public init(@ViewBuilder menuItems: () -> View) {
+    public init(@ViewBuilder menuItems: () -> AltView) {
         items = menuItems().subViews
     }
 }

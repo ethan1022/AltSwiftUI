@@ -23,23 +23,23 @@ public protocol Renderable {
 }
 
 class LastRenderableView {
-    let view: View
-    init(view: View) {
+    let view: AltView
+    init(view: AltView) {
         self.view = view
     }
 }
 
 protocol EquatableView {
-    func equalsView(_ view: View) -> Bool
+    func equalsView(_ view: AltView) -> Bool
 }
 
 /// A type that represents a view.
-public protocol View {
+public protocol AltView {
     var viewStore: ViewValues { get set }
-    var body: View { get }
+    var body: AltView { get }
 }
 
-extension View {
+extension AltView {
     /// Updates the renderable representation of the view and all subviews
     /// in its hierarchy. Changes in view properties and in the context
     /// will be processed here.
@@ -179,7 +179,7 @@ extension View {
     }
     
     /// Finds the first view in the hierarchy that conforms to `Renderable`.
-    func firstRenderableView(parentContext: Context, completeMerge: Bool = false) -> View {
+    func firstRenderableView(parentContext: Context, completeMerge: Bool = false) -> AltView {
         let mergedContext = completeMerge ? parentContext.completeMerge(viewValues: viewStore) : parentContext.merge(viewValues: viewStore)
         if self is Renderable {
             var mergedSelf = self
@@ -196,8 +196,8 @@ extension View {
     /// Returns all grouped subviews flattened in a single array. This is useful
     /// when handling the result of `ViewBuilder` or Groups.
     /// If the view doesn't group subviews, returns an array with the current view.
-    var subViews: [View] {
-        var flatViews = [View]()
+    var subViews: [AltView] {
+        var flatViews = [AltView]()
         firstLevelSubViews.flatIterate(viewValues: viewStore) { view in
             flatViews.append(view)
         }
@@ -208,8 +208,8 @@ extension View {
     /// `map` closure. This is useful when handling the result of `ViewBuilder`
     /// or Groups.
     /// If the view doesn't group subviews, returns an array with the current view.
-    func mappedSubViews(_ map: (View) -> View) -> [View] {
-        var flatViews = [View]()
+    func mappedSubViews(_ map: (AltView) -> AltView) -> [AltView] {
+        var flatViews = [AltView]()
         firstLevelSubViews.flatIterate(viewValues: viewStore) { view in
             flatViews.append(map(view))
         }
@@ -223,8 +223,8 @@ extension View {
     ///
     /// __important__: By totally flattening, some view builder information will
     /// be lost. Not suitable for direct rendering.
-    var totallyFlatSubViews: [View] {
-        var flatViews = [View]()
+    var totallyFlatSubViews: [AltView] {
+        var flatViews = [AltView]()
         firstLevelSubViews.totallyFlatIterate(viewValues: viewStore) { view in
             flatViews.append(view)
         }
@@ -239,8 +239,8 @@ extension View {
     ///
     /// Views inside an `OptionalView` will be flattened and then each added to a separate
     /// `OptionalView` that copies the original `OptionalView` information.
-    var totallyFlatSubViewsWithOptionalViewInfo: [View] {
-        var flatViews = [View]()
+    var totallyFlatSubViewsWithOptionalViewInfo: [AltView] {
+        var flatViews = [AltView]()
         firstLevelSubViews.totallyFlatIterateWithOptionalViewInfo(viewValues: viewStore) { view in
             flatViews.append(view)
         }
@@ -248,7 +248,7 @@ extension View {
     }
     
     /// Returns only the directly immediate subviews.
-    var originalSubViews: [View] {
+    var originalSubViews: [AltView] {
         if let viewGroup = self as? ViewGrouper {
             return viewGroup.viewContent
         } else {
@@ -256,7 +256,7 @@ extension View {
         }
     }
     
-    private var firstLevelSubViews: [View] {
+    private var firstLevelSubViews: [AltView] {
         if let viewGroup = self as? ViewGrouper {
             return viewGroup.viewContent
         } else {
@@ -264,7 +264,7 @@ extension View {
         }
     }
     
-    private func migrateState(fromView oldView: View) {
+    private func migrateState(fromView oldView: AltView) {
         let oldChildren = Mirror(reflecting: oldView).children
         let updatedChildren = Mirror(reflecting: self).children
         
@@ -326,7 +326,7 @@ extension View {
     }
 }
 
-extension View {
+extension AltView {
     func setupDynamicProperties(context: Context) {
         let mirror = Mirror(reflecting: self)
         for child in mirror.children {
@@ -337,7 +337,7 @@ extension View {
     }
 }
 
-extension View {
+extension AltView {
     var firstTransition: (transition: AnyTransition, animationValues: AnimatedViewValues?)? {
         if let transition = viewStore.transition {
             return (transition: transition, animationValues: nil)

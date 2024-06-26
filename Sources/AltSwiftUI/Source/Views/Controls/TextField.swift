@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view that allows text input in one line.
-public struct TextField<T>: View {
+public struct TextField<T>: AltView {
     public var viewStore = ViewValues()
     let title: String
     let onCommit: () -> Void
@@ -20,7 +20,7 @@ public struct TextField<T>: View {
     var isFirstResponder: Binding<Bool>?
     var isSecureTextEntry: Bool?
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 

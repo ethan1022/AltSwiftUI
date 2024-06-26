@@ -11,9 +11,9 @@ import UIKit
 // MARK: - Renderable Views
 
 /// An empty view with no content.
-public struct EmptyView: View {
+public struct EmptyView: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         self
     }
     public init() {}
@@ -29,7 +29,7 @@ extension EmptyView: Renderable {
 }
 
 /// A view that adds padding to another view.
-public struct PaddingView: View, Equatable {
+public struct PaddingView: AltView, Equatable {
     public static func == (lhs: PaddingView, rhs: PaddingView) -> Bool {
         if let lContent = lhs.contentView as? PaddingView, let rContent = rhs.contentView as? PaddingView {
             return lContent == rContent
@@ -39,10 +39,10 @@ public struct PaddingView: View, Equatable {
     }
     
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
-    var contentView: View
+    var contentView: AltView
     var padding: CGFloat?
     var paddingInsets: EdgeInsets?
 }
@@ -84,7 +84,7 @@ extension PaddingView: Renderable {
 
 // MARK: - Builder Views
 
-public struct OptionalView: View {
+public struct OptionalView: AltView {
     enum IfElseType: Equatable {
         /// Views inside 'if' statement
         case `if`
@@ -101,22 +101,22 @@ public struct OptionalView: View {
     }
     
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
-    let content: [View]?
+    let content: [AltView]?
     var ifElseType: IfElseType?
 }
 
-public struct TupleView: View, ViewGrouper {
+public struct TupleView: AltView, ViewGrouper {
     public var viewStore = ViewValues()
-    var viewContent: [View]
+    var viewContent: [AltView]
     
-    public init(_ values: [View]) {
+    public init(_ values: [AltView]) {
         viewContent = values
     }
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 }

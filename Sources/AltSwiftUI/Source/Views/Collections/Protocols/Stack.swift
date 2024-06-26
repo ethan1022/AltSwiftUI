@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol Stack: View, Renderable {
-    var viewContent: [View] { get }
-    var subviewIsEquallySpaced: (View) -> Bool { get }
+protocol Stack: AltView, Renderable {
+    var viewContent: [AltView] { get }
+    var subviewIsEquallySpaced: (AltView) -> Bool { get }
     var setSubviewEqualDimension: (UIView, UIView) -> Void { get }
-    func updateView(_ view: UIView, context: Context, oldViewContent: [View]?)
+    func updateView(_ view: UIView, context: Context, oldViewContent: [AltView]?)
 }

@@ -11,7 +11,7 @@ import UIKit
 /// In charge of setting the correct layout constraints for a `View` configuration.
 enum LayoutSolver {
     // swiftlint:disable:next function_body_length
-    static func solveLayout(parentView: UIView, contentView: UIView, content: View, parentContext: Context, expand: Bool = false, alignment: Alignment = .center) {
+    static func solveLayout(parentView: UIView, contentView: UIView, content: AltView, parentContext: Context, expand: Bool = false, alignment: Alignment = .center) {
         var safeTop = true
         var safeLeft = true
         var safeRight = true

@@ -10,13 +10,13 @@ import Foundation
 
 /// A view that creates views based on data. This view itself has no visual
 /// representation. Adding a background to this view, for example, will have no effect.
-public struct ForEach<Data: RandomAccessCollection, ID: Hashable, Content: View>: View {
+public struct ForEach<Data: RandomAccessCollection, ID: Hashable, Content: AltView>: AltView {
     public var viewStore = ViewValues()
-    var viewContent: [View]
+    var viewContent: [AltView]
     let data: Data
     let idKeyPath: KeyPath<Data.Element, ID>
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     

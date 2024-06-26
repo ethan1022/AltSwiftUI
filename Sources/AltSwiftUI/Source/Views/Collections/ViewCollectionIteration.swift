@@ -9,9 +9,9 @@
 import UIKit
 
 enum DiffableViewSourceOperation {
-    case insert(view: View)
-    case delete(view: View)
-    case update(view: View)
+    case insert(view: AltView)
+    case delete(view: AltView)
+    case update(view: AltView)
 }
 
 enum DiffableDataSourceOperation<Data> {
@@ -25,14 +25,14 @@ enum CollectionDiffIndex {
     case old(index: Int)
 }
 
-extension Array where Element == View {
+extension Array where Element == AltView {
     
     /// Iterates through all direct views, flattening Groups.
     /// Iterated views have their parent properties merged.
-    func flatIterate(viewValues: ViewValues = ViewValues(), action: (View) -> Void) {
+    func flatIterate(viewValues: ViewValues = ViewValues(), action: (AltView) -> Void) {
         for view in self {
             let mergedValues = view.viewStore.merge(defaultValues: viewValues)
-            if let group = view as? (ViewGrouper & View) {
+            if let group = view as? (ViewGrouper & AltView) {
                 group.viewContent.flatIterate(viewValues: mergedValues, action: action)
             } else {
                 var view = view
@@ -47,10 +47,10 @@ extension Array where Element == View {
     ///
     /// This is useful when you want to iterate through all final subviews, even if they
     /// exist in `ForEach` loops or marked as optional.
-    func totallyFlatIterate(viewValues: ViewValues = ViewValues(), action: (View) -> Void) {
+    func totallyFlatIterate(viewValues: ViewValues = ViewValues(), action: (AltView) -> Void) {
         for view in self {
             let mergedValues = view.viewStore.merge(defaultValues: viewValues)
-            if let group = view as? (ViewGrouper & View) {
+            if let group = view as? (ViewGrouper & AltView) {
                 group.viewContent.totallyFlatIterate(viewValues: mergedValues, action: action)
             } else if let group = view as? OptionalView {
                 group.content?.totallyFlatIterate(viewValues: mergedValues, action: action)
@@ -71,7 +71,7 @@ extension Array where Element == View {
     ///
     /// This is useful when you want to iterate through all final subviews, even if they
     /// exist in `ForEach` loops or marked as optional.
-    func totallyFlatIterateWithOptionalViewInfo(viewValues: ViewValues = ViewValues(), action: (View) -> Void) {
+    func totallyFlatIterateWithOptionalViewInfo(viewValues: ViewValues = ViewValues(), action: (AltView) -> Void) {
         totallyFlatIterateWithOptionalViewInfo(viewValues: viewValues, action: action, optionalIfBlockId: nil, optionalElseBlockId: nil)
     }
     
@@ -110,7 +110,7 @@ extension Array where Element == View {
     /// Iterates each view totally flatly and calls the iteration
     /// closure. Groups are not flattened, and are expected to already be
     /// flattened.
-    func iterateFullViewInsert(iteration: (View) -> Void) {
+    func iterateFullViewInsert(iteration: (AltView) -> Void) {
         for subView in self {
             if let optionalView = subView as? OptionalView {
                 if let optionalViewContent = optionalView.content {
@@ -135,7 +135,7 @@ extension Array where Element == View {
     ///
     /// Groups are not flattened, and are expected to already be
     /// flattened.
-    func iterateFullViewDiff(oldList: [View] = [], iteration: (Int, DiffableViewSourceOperation) -> Void) {
+    func iterateFullViewDiff(oldList: [AltView] = [], iteration: (Int, DiffableViewSourceOperation) -> Void) {
         var displayIndex = 0
         let maxCount = Swift.max(count, oldList.count)
         if maxCount == 0 {
@@ -143,8 +143,8 @@ extension Array where Element == View {
         }
         
         for index in 0..<maxCount {
-            var subView: View?
-            var oldView: View?
+            var subView: AltView?
+            var oldView: AltView?
             if count > index {
                 subView = self[index]
             }
@@ -155,13 +155,13 @@ extension Array where Element == View {
         }
     }
     
-    private func totallyFlatIterateWithOptionalViewInfo(viewValues: ViewValues = ViewValues(), action: (View) -> Void, optionalIfBlockId: Int?, optionalElseBlockId: Int?, ifElseType: OptionalView.IfElseType? = nil) {
+    private func totallyFlatIterateWithOptionalViewInfo(viewValues: ViewValues = ViewValues(), action: (AltView) -> Void, optionalIfBlockId: Int?, optionalElseBlockId: Int?, ifElseType: OptionalView.IfElseType? = nil) {
         var optionalIfBlockId = optionalIfBlockId
         var optionalElseBlockId = optionalElseBlockId
         var ifElseType = ifElseType
         for view in self {
             let mergedValues = view.viewStore.merge(defaultValues: viewValues)
-            if let group = view as? (ViewGrouper & View) {
+            if let group = view as? (ViewGrouper & AltView) {
                 group.viewContent.totallyFlatIterateWithOptionalViewInfo(
                     viewValues: mergedValues,
                     action: action,
@@ -211,7 +211,7 @@ extension Array where Element == View {
     }
     
     // swiftlint:disable:next function_body_length
-    private func iterateFullSubviewDiff(subView: View?, oldView: View?, iteration: (Int, DiffableViewSourceOperation) -> Void, displayIndex: inout Int) {
+    private func iterateFullSubviewDiff(subView: AltView?, oldView: AltView?, iteration: (Int, DiffableViewSourceOperation) -> Void, displayIndex: inout Int) {
         if let optionalView = subView as? OptionalView, let optionalViewContent = optionalView.content {
             let oldOptionalView = oldView as? OptionalView
             let maxCount = Swift.max(optionalViewContent.count, oldOptionalView?.content?.count ?? 0)

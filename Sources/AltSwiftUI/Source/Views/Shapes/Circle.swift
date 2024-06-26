@@ -18,7 +18,7 @@ public struct Circle: Shape {
     var trimStartFraction: CGFloat = 0
     var trimEndFraction: CGFloat = 1
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     

@@ -270,7 +270,7 @@ enum Direction {
 }
 
 struct AlignedView {
-    var view: View
+    var view: AltView
     var alignment: Alignment
 }
 

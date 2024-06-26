@@ -9,9 +9,9 @@
 import UIKit
 
 /// This view arranges subviews horizontally.
-public struct HStack: View, Stack {
+public struct HStack: AltView, Stack {
     public var viewStore = ViewValues()
-    let viewContent: [View]
+    let viewContent: [AltView]
     let alignment: VerticalAlignment
     let spacing: CGFloat
     
@@ -22,7 +22,7 @@ public struct HStack: View, Stack {
     ///   - spacing: The horizontal distance between subviews. If not specified,
     ///   the distance will use the default spacing specified by the framework.
     ///   - content: A view builder that creates the content of this stack.
-    public init(alignment: VerticalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: () -> View) {
+    public init(alignment: VerticalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: () -> AltView) {
         let contentView = content()
         viewContent = contentView.mappedSubViews { subView in
             // Prevent UIStackView from creating custom
@@ -39,12 +39,12 @@ public struct HStack: View, Stack {
         self.spacing = spacing ?? SwiftUIConstants.defaultSpacing
         viewStore.direction = .horizontal
     }
-    init(viewContent: [View]) {
+    init(viewContent: [AltView]) {
         self.viewContent = viewContent
         alignment = .center
         spacing = SwiftUIConstants.defaultSpacing
     }
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 }
@@ -66,7 +66,7 @@ extension HStack: Renderable {
         }
     }
     
-    func updateView(_ view: UIView, context: Context, oldViewContent: [View]? = nil) {
+    func updateView(_ view: UIView, context: Context, oldViewContent: [AltView]? = nil) {
         var stackView = view
         if let bgView = view as? BackgroundView {
             stackView = bgView.content
@@ -84,7 +84,7 @@ extension HStack: Renderable {
         }
     }
     
-    var subviewIsEquallySpaced: (View) -> Bool { { view in
+    var subviewIsEquallySpaced: (AltView) -> Bool { { view in
            if (view is Spacer &&
                view.viewStore.viewDimensions?.width == nil)
                ||

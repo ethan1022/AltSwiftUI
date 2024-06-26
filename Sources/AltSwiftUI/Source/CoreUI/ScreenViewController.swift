@@ -16,7 +16,7 @@ class EventCodeHandler {
 }
 
 class ScreenViewController: UIViewController {
-    var contentView: View
+    var contentView: AltView
     var onAppearHandlers: NSMapTable<UIView, EventCodeHandler> = NSMapTable(keyOptions: .weakMemory, valueOptions: .strongMemory)
     var onDisappearHandlers: NSMapTable<UIView, EventCodeHandler> = NSMapTable(keyOptions: .weakMemory, valueOptions: .strongMemory)
     var insertOnAppearHandlers: NSMapTable<UIView, EventCodeHandler> = NSMapTable(keyOptions: .weakMemory, valueOptions: .strongMemory)
@@ -39,7 +39,7 @@ class ScreenViewController: UIViewController {
     }
     
     public init(
-        contentView: View,
+        contentView: AltView,
         parentContext: Context? = nil,
         isNavigationController: Bool = false,
         onPop: (() -> Void)? = nil,
@@ -159,7 +159,7 @@ class ScreenViewController: UIViewController {
     
     // MARK: - Public methods: Navigation
     
-    func navigateToView(_ view: View, context: Context, onPop: (() -> Void)? = nil) {
+    func navigateToView(_ view: AltView, context: Context, onPop: (() -> Void)? = nil) {
         let vc = ScreenViewController(
             contentView: view,
             parentContext: context,

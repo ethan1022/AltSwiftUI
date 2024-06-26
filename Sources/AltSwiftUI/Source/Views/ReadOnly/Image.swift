@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view that renders an image.
-public struct Image: View {
+public struct Image: AltView {
     public enum ResizingMode {
         case stretch
         case tile
@@ -23,7 +23,7 @@ public struct Image: View {
     }
     
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     private(set) var image: UIImage

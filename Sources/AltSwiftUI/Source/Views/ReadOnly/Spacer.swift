@@ -15,10 +15,10 @@ import UIKit
 /// When inside a `HStack`, the spacer will expand horizontally.
 ///
 /// When inside a `VStack`, the spacer will expand vertically.
-public struct Spacer: View {
+public struct Spacer: AltView {
     public var viewStore = ViewValues()
     
-    public var body: View {
+    public var body: AltView {
         self
     }
     

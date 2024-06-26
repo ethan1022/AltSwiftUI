@@ -9,9 +9,9 @@
 import UIKit
 
 /// This view arranges subviews vertically.
-public struct VStack: View, Stack {
+public struct VStack: AltView, Stack {
     public var viewStore = ViewValues()
-    let viewContent: [View]
+    let viewContent: [AltView]
     let alignment: HorizontalAlignment
     let spacing: CGFloat?
     
@@ -22,14 +22,14 @@ public struct VStack: View, Stack {
     ///   - spacing: The vertical distance between subviews. If not specified,
     ///   the distance will be 0.
     ///   - content: A view builder that creates the content of this stack.
-    public init(alignment: HorizontalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: () -> View) {
+    public init(alignment: HorizontalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: () -> AltView) {
         let contentView = content()
         viewContent = contentView.subViews
         self.alignment = alignment
         self.spacing = spacing
         viewStore.direction = .vertical
     }
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 }
@@ -52,7 +52,7 @@ extension VStack: Renderable {
         }
     }
     
-    func updateView(_ view: UIView, context: Context, oldViewContent: [View]? = nil) {
+    func updateView(_ view: UIView, context: Context, oldViewContent: [AltView]? = nil) {
         var stackView = view
         if let bgView = view as? BackgroundView {
             stackView = bgView.content
@@ -75,7 +75,7 @@ extension VStack: Renderable {
         view.spacing = spacing ?? 0
     }
     
-    var subviewIsEquallySpaced: (View) -> Bool { { view in
+    var subviewIsEquallySpaced: (AltView) -> Bool { { view in
            if (view is Spacer ||
                view.viewStore.viewDimensions?.maxHeight == CGFloat.limitForUI
                )

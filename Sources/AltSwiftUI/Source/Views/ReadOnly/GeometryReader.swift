@@ -12,16 +12,16 @@ import UIKit
 /// `GeometryProxy` value with it's own frame.
 ///
 /// By default this view's dimensions are flexible.
-public struct GeometryReader: View {
+public struct GeometryReader: AltView {
     public var viewStore = ViewValues()
-    var viewContent: (GeometryProxy) -> View
+    var viewContent: (GeometryProxy) -> AltView
     @State private var geometryProxy: GeometryProxy = .default
     
-    public init(@ViewBuilder content: @escaping (GeometryProxy) -> View) {
+    public init(@ViewBuilder content: @escaping (GeometryProxy) -> AltView) {
         viewContent = content
     }
     
-    public var body: View {
+    public var body: AltView {
         ZStack(alignment: .topLeading) {
             viewContent(geometryProxy)
         }

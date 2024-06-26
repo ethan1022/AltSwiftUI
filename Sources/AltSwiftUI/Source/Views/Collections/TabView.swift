@@ -13,9 +13,9 @@ import UIKit
 /// __Important__: This view will add a tab view at the __root__
 /// screen in the application.
 @available(watchOS, unavailable)
-public struct TabView: View {
+public struct TabView: AltView {
     let selection: Binding<Int>?
-    let content: [View]
+    let content: [AltView]
     private var selectedIndex: Int? {
         guard let selectionValue = selection?.wrappedValue else {
             return nil
@@ -24,13 +24,13 @@ public struct TabView: View {
     }
 
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     
     /// Creates an instance that selects from content associated with
     /// `Selection` values.
-    public init(selection: Binding<Int>? = nil, @ViewBuilder content: () -> View) {
+    public init(selection: Binding<Int>? = nil, @ViewBuilder content: () -> AltView) {
         self.selection = selection
         self.content = content().subViews
     }

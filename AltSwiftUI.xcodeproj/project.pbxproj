@@ -15,7 +15,7 @@
 		2CC2D03B27337D0B00B9F90D /* LazyHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2D03A27337D0B00B9F90D /* LazyHStack.swift */; };
 		2CC2D03E27337DF400B9F90D /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2D03D27337DF400B9F90D /* Stack.swift */; };
 		2CC2D04027337DFC00B9F90D /* LazyStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2D03F27337DFC00B9F90D /* LazyStack.swift */; };
-		2CD1A00E2512066D00E2CCBA /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD19FBF2512066D00E2CCBA /* View.swift */; };
+		2CD1A00E2512066D00E2CCBA /* AltView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD19FBF2512066D00E2CCBA /* AltView.swift */; };
 		2CD1A00F2512066D00E2CCBA /* ViewBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD19FC02512066D00E2CCBA /* ViewBinder.swift */; };
 		2CD1A0102512066D00E2CCBA /* LayoutSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD19FC12512066D00E2CCBA /* LayoutSolver.swift */; };
 		2CD1A0112512066D00E2CCBA /* UIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD19FC22512066D00E2CCBA /* UIHostingController.swift */; };
@@ -109,7 +109,7 @@
 		2CC2D03A27337D0B00B9F90D /* LazyHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyHStack.swift; sourceTree = "<group>"; };
 		2CC2D03D27337DF400B9F90D /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		2CC2D03F27337DFC00B9F90D /* LazyStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyStack.swift; sourceTree = "<group>"; };
-		2CD19FBF2512066D00E2CCBA /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		2CD19FBF2512066D00E2CCBA /* AltView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltView.swift; sourceTree = "<group>"; };
 		2CD19FC02512066D00E2CCBA /* ViewBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBinder.swift; sourceTree = "<group>"; };
 		2CD19FC12512066D00E2CCBA /* LayoutSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSolver.swift; sourceTree = "<group>"; };
 		2CD19FC22512066D00E2CCBA /* UIHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHostingController.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 				2CD19FC32512066D00E2CCBA /* ScreenViewController.swift */,
 				2CD19FC22512066D00E2CCBA /* UIHostingController.swift */,
 				2CD19FC42512066D00E2CCBA /* UIViewBuilder.swift */,
-				2CD19FBF2512066D00E2CCBA /* View.swift */,
+				2CD19FBF2512066D00E2CCBA /* AltView.swift */,
 				2CD19FC02512066D00E2CCBA /* ViewBinder.swift */,
 			);
 			path = CoreUI;
@@ -595,7 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CD1A01E2512066D00E2CCBA /* ObservedObject.swift in Sources */,
-				2CD1A00E2512066D00E2CCBA /* View.swift in Sources */,
+				2CD1A00E2512066D00E2CCBA /* AltView.swift in Sources */,
 				2CD1A0492512066D00E2CCBA /* FoundationExtensions.swift in Sources */,
 				2CD1A0392512066D00E2CCBA /* Toggle.swift in Sources */,
 				2CD1A0352512066D00E2CCBA /* Color.swift in Sources */,

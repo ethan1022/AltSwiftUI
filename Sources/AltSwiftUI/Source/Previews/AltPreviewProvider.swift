@@ -39,7 +39,7 @@ public protocol AltPreviewProvider: PreviewProvider {
     ///     }
     ///
     ///     #endif
-    static var previewView: View { get }
+    static var previewView: AltView { get }
 }
 
 @available(iOS 13.0.0, *)
@@ -64,5 +64,5 @@ struct PreviewProviderViewCRepresentable: SwiftUI.UIViewControllerRepresentable 
     public func updateUIViewController(_ uiViewController: UIViewController, context: SwiftUI.UIViewControllerRepresentableContext<PreviewProviderViewCRepresentable>) {
     }
        
-    let contentView: View
+    let contentView: AltView
 }

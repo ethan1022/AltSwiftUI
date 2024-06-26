@@ -17,9 +17,9 @@ import UIKit
 /// vertical line.
 ///
 /// Otherwise, the divider will always display a horizontal line.
-public struct Divider: View {
+public struct Divider: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         self
     }
     public init() {}

@@ -9,9 +9,9 @@
 import UIKit
 
 /// This view arranges subviews one in front of the other, using the _z_ axis.
-public struct ZStack: View {
+public struct ZStack: AltView {
     public var viewStore = ViewValues()
-    let viewContent: [View]
+    let viewContent: [AltView]
     let alignment: Alignment
     
     /// Creates an instance of a view that arranges subviews horizontally.
@@ -20,12 +20,12 @@ public struct ZStack: View {
     ///   - alignment: The alignment guide for its children. Defaults to `center`.
     ///   - content: A view builder that creates the content of this stack. The
     ///     last view will be the topmost view.
-    public init(alignment: Alignment = .center, @ViewBuilder content: () -> View) {
+    public init(alignment: Alignment = .center, @ViewBuilder content: () -> AltView) {
         viewContent = content().subViews
         self.alignment = alignment
     }
     
-    public var body: View {
+    public var body: AltView {
         self
     }
 }

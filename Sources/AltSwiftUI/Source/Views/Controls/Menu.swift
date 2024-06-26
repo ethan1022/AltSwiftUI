@@ -10,10 +10,10 @@ import UIKit
 
 @available(iOS 14.0, *)
 /// A view that can be tapped by the user to open a menu.
-public struct Menu: View {
+public struct Menu: AltView {
     public var viewStore = ViewValues()
-    var label: View
-    var viewContent: [View]
+    var label: AltView
+    var viewContent: [AltView]
     
     /// Creates an instance that triggers an `action`.
     ///
@@ -23,12 +23,12 @@ public struct Menu: View {
     ///         1. Button with Text inside
     ///         2. Menu
     ///     - label: The visual representation of the menu button
-    public init(@ViewBuilder content: () -> View, label: () -> View) {
+    public init(@ViewBuilder content: () -> AltView, label: () -> AltView) {
         self.label = label()
         self.viewContent = content().subViews
     }
     
-    public var body: View {
+    public var body: AltView {
         self
     }
 }
@@ -43,7 +43,7 @@ extension Menu {
     ///     Content can only support two specific types of view:
     ///         1. Button with Text inside
     ///         2. Menu
-    public init(_ title: String, @ViewBuilder content: () -> View) {
+    public init(_ title: String, @ViewBuilder content: () -> AltView) {
         label = Text(title)
         self.viewContent = content().subViews
     }
@@ -75,7 +75,7 @@ extension Menu: Renderable {
     public func createView(context: Context) -> UIView {
         let button = Button {
             
-        } label: { () -> View in
+        } label: { () -> AltView in
             label
         }
         if let uiButton = button.createView(context: context) as? SwiftUIButton {
@@ -91,7 +91,7 @@ extension Menu: Renderable {
         UIMenu(title: "", image: nil, options: .displayInline, children: menuElements(viewContent: viewContent))
     }
     
-    private func menuElements(viewContent: [View]) -> [UIMenuElement] {
+    private func menuElements(viewContent: [AltView]) -> [UIMenuElement] {
         var elements = [UIMenuElement]()
         viewContent.totallyFlatIterate { (view) in
             if let buttonView = view as? Button,

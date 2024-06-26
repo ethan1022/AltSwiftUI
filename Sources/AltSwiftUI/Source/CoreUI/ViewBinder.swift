@@ -22,7 +22,7 @@ class ViewBinder {
         weak var parent: UIView?
     }
     
-    var view: View
+    var view: AltView
     weak var uiView: UIView?
     weak var rootController: ScreenViewController?
     weak var overwriteRootController: UIViewController?
@@ -37,7 +37,7 @@ class ViewBinder {
     /// to the same `UIView`.
     var bodyLevel: Int
     
-    init(view: View, rootController: ScreenViewController?, bodyLevel: Int, isInsideButton: Bool, overwriteTransaction: OverwriteTransaction?, parentScrollView: SwiftUIScrollView?) {
+    init(view: AltView, rootController: ScreenViewController?, bodyLevel: Int, isInsideButton: Bool, overwriteTransaction: OverwriteTransaction?, parentScrollView: SwiftUIScrollView?) {
         self.view = view
         self.rootController = rootController
         self.bodyLevel = bodyLevel

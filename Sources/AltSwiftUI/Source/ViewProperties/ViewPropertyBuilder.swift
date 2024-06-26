@@ -9,7 +9,7 @@
 import UIKit
 import StoreKit
 
-extension View {
+extension AltView {
     public func background(_ color: Color?) -> Self {
         var view = self
         view.viewStore.background = color?.color
@@ -152,7 +152,7 @@ extension View {
     ///
     /// - Returns: The view with a contextual menu.
     @available(tvOS, unavailable)
-    public func contextMenu(@ViewBuilder menuItems: () -> View) -> Self {
+    public func contextMenu(@ViewBuilder menuItems: () -> AltView) -> Self {
         contextMenu(ContextMenu { menuItems() })
     }
 
@@ -197,7 +197,7 @@ extension View {
     ///   - overlay: The view to layer in front of this view.
     ///   - alignment: The alignment for `overlay` in relation to this view.
     /// - Returns: The view with an `overlay` layer in front.
-    public func overlay<Overlay>(_ overlay: Overlay, alignment: Alignment = .center) -> Self where Overlay: View {
+    public func overlay<Overlay>(_ overlay: Overlay, alignment: Alignment = .center) -> Self where Overlay: AltView {
         var view = self
         view.viewStore.overlay = AlignedView(view: overlay, alignment: alignment)
         return view
@@ -576,7 +576,7 @@ extension View {
     
     /// Sets the tab item information for the tab root view
     /// __Important__: You __must__ provide both one Text and Image only.
-    public func tabItem(@ViewBuilder _ label: () -> View) -> Self {
+    public func tabItem(@ViewBuilder _ label: () -> AltView) -> Self {
         var view = self
         let subViews = label().subViews
         if let text = subViews.first(where: { $0 is Text }) as? Text, let image = subViews.first(where: { $0 is Image }) as? Image {
@@ -609,13 +609,13 @@ extension View {
     
     /// Returns a modified version of the view, which is modified by
     /// the `modifier` parameter.
-    public func modifier(_ modifier: ViewModifier) -> View {
+    public func modifier(_ modifier: ViewModifier) -> AltView {
         modifier.body(content: self)
     }
     
     /// Masks the view with another view. The view passed as parameter
     /// will act as the mask.
-    public func mask(_ mask: View) -> Self {
+    public func mask(_ mask: AltView) -> Self {
         var view = self
         view.viewStore.mask = mask
         return view
@@ -809,7 +809,7 @@ extension View {
     /// Sets leading and trailing views.
     /// __AltSwiftUI__: Only `Button<Text>`, `Button<Image>` and `HStack` with
     /// data of `Button` type is allowed.
-    public func navigationBarItems(leading: View, trailing: View) -> Self {
+    public func navigationBarItems(leading: AltView, trailing: AltView) -> Self {
         var view = self
         view.viewStore.navigationItems = NavigationButtons(leading: navigationButtonsForView(leading), trailing: navigationButtonsForView(trailing))
         return view
@@ -818,7 +818,7 @@ extension View {
     /// Sets leading view.
     /// __AltSwiftUI__: Only `Button<Text>`, `Button<Image>` and `HStack` with
     /// data of `Button` type is allowed.
-    public func navigationBarItems(leading: View) -> Self {
+    public func navigationBarItems(leading: AltView) -> Self {
         var view = self
         view.viewStore.navigationItems = NavigationButtons(leading: navigationButtonsForView(leading), trailing: nil)
         return view
@@ -827,7 +827,7 @@ extension View {
     /// Sets trailing view.
     /// __AltSwiftUI__: Only `Button<Text>`, `Button<Image>` and `HStack` with
     /// data of `Button` type is allowed.
-    public func navigationBarItems(trailing: View) -> Self {
+    public func navigationBarItems(trailing: AltView) -> Self {
         var view = self
         view.viewStore.navigationItems = NavigationButtons(leading: nil, trailing: navigationButtonsForView(trailing))
         return view
@@ -839,7 +839,7 @@ extension View {
     ///     - isPresented: A `Binding` to whether the sheet is presented.
     ///     - onDismiss: A closure executed when the sheet dismisses.
     ///     - content: A closure returning the content of the sheet.
-    public func sheet<Content: View>(isPresented: Binding<Bool>, isFullScreen: Bool = false, onDismiss: (() -> Void)? = nil, content: @escaping () -> Content) -> View {
+    public func sheet<Content: AltView>(isPresented: Binding<Bool>, isFullScreen: Bool = false, onDismiss: (() -> Void)? = nil, content: @escaping () -> Content) -> AltView {
         var view = self
         if isPresented.wrappedValue {
             let content = content().subViews.first ?? EmptyView()
@@ -854,7 +854,7 @@ extension View {
         return view
     }
     
-    private func navigationButtonsForView(_ view: View) -> [UIBarButtonItem] {
+    private func navigationButtonsForView(_ view: AltView) -> [UIBarButtonItem] {
         if let button = view as? Button {
             return [navigationButtonForButton(button)]
         } else if let hstack = view as? HStack {

@@ -8,12 +8,12 @@
 import UIKit
 
 /// A view into which the user securely enters private text.
-public struct SecureField: View {
+public struct SecureField: AltView {
     public var viewStore = ViewValues()
 
     var textField: TextField<String>
 
-    public var body: View {
+    public var body: AltView {
         textField
     }
 

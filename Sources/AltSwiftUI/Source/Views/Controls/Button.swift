@@ -9,9 +9,9 @@
 import UIKit
 
 /// A view that can be tapped by the user to trigger some action.
-public struct Button: View {
+public struct Button: AltView {
     public var viewStore = ViewValues()
-    var labels: [View]
+    var labels: [AltView]
     var action: () -> Void
     
     /// Creates an instance that triggers an `action`.
@@ -19,7 +19,7 @@ public struct Button: View {
     /// - Parameters:
     ///     - action: The action to perform when the button is triggered.
     ///     - label: The visual representation of the button
-    public init(action: @escaping () -> Void, @ViewBuilder label: () -> View) {
+    public init(action: @escaping () -> Void, @ViewBuilder label: () -> AltView) {
         self.labels = label().subViews
         self.action = action
     }
@@ -29,7 +29,7 @@ public struct Button: View {
         action()
     }
     
-    public var body: View {
+    public var body: AltView {
         self
     }
 }

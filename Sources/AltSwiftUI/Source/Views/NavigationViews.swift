@@ -13,14 +13,14 @@ import SwiftUI
 /// Add only one `NavigationView` per view hierarchy.
 ///
 /// By adding a `NavigationView`, a navigation bar will be shown by default.
-public struct NavigationView: View {
+public struct NavigationView: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     
-    let content: View
-    public init(@ViewBuilder content: () -> View) {
+    let content: AltView
+    public init(@ViewBuilder content: () -> AltView) {
         self.content = content().subViews.first ?? EmptyView()
     }
 }
@@ -68,13 +68,13 @@ extension NavigationView: Renderable {
 /// This view will perform navigation when triggered by the user.
 /// The behavior of this view is same as a `Button`, but the action
 /// is predefined to navigate to a specified `View`.
-public struct NavigationLink: View {
+public struct NavigationLink: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
-    let contentView: View
-    var destination: View
+    let contentView: AltView
+    var destination: AltView
     var isActive: Binding<Bool>?
     
     /// Creates an instance that will navigate to the `destination` when
@@ -84,7 +84,7 @@ public struct NavigationLink: View {
     ///     - destination: The view to which the current view hierarchy will
     ///     navigate to.
     ///     - label: The visual contents of `self`
-    public init(destination: View, @ViewBuilder label: () -> View) {
+    public init(destination: AltView, @ViewBuilder label: () -> AltView) {
         contentView = label().subViews.first ?? EmptyView()
         self.destination = destination
     }
@@ -98,7 +98,7 @@ public struct NavigationLink: View {
     ///     - isActive: Will trigger the navigation when true. When false, will
     ///     dismiss the navigation if active.
     ///     - label: The visual contents of `self`
-    public init(destination: View, isActive: Binding<Bool>, @ViewBuilder label: () -> View) {
+    public init(destination: AltView, isActive: Binding<Bool>, @ViewBuilder label: () -> AltView) {
         contentView = label().subViews.first ?? EmptyView()
         self.destination = destination
         self.isActive = isActive
@@ -157,24 +157,24 @@ extension NavigationLink: Renderable {
             } else {
                 context.rootController?.navigateToView(self.destination, context: context)
             }
-        }) { () -> View in
+        }) { () -> AltView in
             contentView
         }
     }
 }
 
 @available(iOS 13.0, *)
-public struct NavigationSwiftUILink: View {
+public struct NavigationSwiftUILink: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     
-    let contentView: View
+    let contentView: AltView
     var destination: AnyView?
     var isActive: Binding<Bool>?
     
-    public init(destination: AnyObject?, @ViewBuilder label: () -> View) {
+    public init(destination: AnyObject?, @ViewBuilder label: () -> AltView) {
         contentView = label().subViews.first ?? EmptyView()
         if let destination = destination as? AnyView {
             self.destination = destination
@@ -202,7 +202,7 @@ extension NavigationSwiftUILink: Renderable {
         if let content = view.content {
             linkButton(context: context).scheduleUpdateRender(uiView: content, parentContext: context)
         }
-        if let isActive = isActive, let destination = self.destination as? View {
+        if let isActive = isActive, let destination = self.destination as? AltView {
             if isActive.wrappedValue {
                 if !(view.hasPushedView ?? false) {
                     view.hasPushedView = true
@@ -223,11 +223,11 @@ extension NavigationSwiftUILink: Renderable {
             if let isActive = self.isActive {
                 isActive.wrappedValue = true
             } else {
-                if let destination = self.destination as? View {
+                if let destination = self.destination as? AltView {
                     context.rootController?.navigateToView(destination, context: context)
                 }
             }
-        }) { () -> View in
+        }) { () -> AltView in
             contentView
         }
     }

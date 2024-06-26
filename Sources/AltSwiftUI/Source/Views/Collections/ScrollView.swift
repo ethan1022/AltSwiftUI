@@ -10,12 +10,12 @@ import UIKit
 
 /// Creates a view that can scroll its subviews. Unlike a `List`,
 /// all subviews are created together with this view.
-public struct ScrollView: View {
+public struct ScrollView: AltView {
     public var viewStore = ViewValues()
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
-    var contentView: View?
+    var contentView: AltView?
     let showsIndicators: Bool
     let axis: Axis
     var contentOffset: Binding<CGPoint>?
@@ -26,7 +26,7 @@ public struct ScrollView: View {
     var interactiveScrollEnabled = true
     var keyboardDismissMode: UIScrollView.KeyboardDismissMode?
     
-    public init(_ axis: Axis = .vertical, showsIndicators: Bool = true, content: () -> View) {
+    public init(_ axis: Axis = .vertical, showsIndicators: Bool = true, content: () -> AltView) {
         contentView = content()
         self.axis = axis
         self.showsIndicators = showsIndicators

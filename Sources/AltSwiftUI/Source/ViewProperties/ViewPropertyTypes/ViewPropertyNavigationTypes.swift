@@ -49,7 +49,7 @@ struct NavigationButtons {
 }
 
 struct SheetPresentation {
-    let sheetView: View
+    let sheetView: AltView
     let onDismiss: () -> Void
     let isPresented: Binding<Bool>
     let isFullScreen: Bool

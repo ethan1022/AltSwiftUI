@@ -16,7 +16,7 @@ public struct Capsule: Shape {
     public var strokeBorderColor = Color.clear
     public var style = StrokeStyle()
 
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     

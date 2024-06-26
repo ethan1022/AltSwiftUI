@@ -12,19 +12,19 @@ import UIKit
 ///
 /// By Default a picker view style will be used. If you want to use a different
 /// style, modify the view with the `.pickerStyle(_)` method.
-public struct Picker: View {
+public struct Picker: AltView {
     public var viewStore = ViewValues()
     let selection: Binding<Int>
-    let views: [View]
+    let views: [AltView]
     var style: PickerStyle?
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     
     /// Initializes a picker with a selected index and content. The title
     /// is onlt to identify the picker but won't be visible.
-    public init(_ title: String, selection: Binding<Int>, @ViewBuilder content: () -> View) {
+    public init(_ title: String, selection: Binding<Int>, @ViewBuilder content: () -> AltView) {
         self.selection = selection
         views = content().totallyFlatSubViews.enumerated().map { index, view in
             if view.viewStore.tag == nil {
@@ -141,11 +141,11 @@ public struct SegmentedPickerStyle: PickerStyle {
 }
 
 class SwiftUIPickerDelegate: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
-    let views: [View]
+    let views: [AltView]
     let context: Context
     let selection: Binding<Int>
     
-    init(views: [View], context: Context, selection: Binding<Int>) {
+    init(views: [AltView], context: Context, selection: Binding<Int>) {
         self.views = views
         self.context = context
         self.selection = selection

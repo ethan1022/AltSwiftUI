@@ -10,9 +10,9 @@ import Foundation
 
 protocol ComparableViewGrouper {
     func iterateDiff(oldViewGroup: ComparableViewGrouper, startDisplayIndex: inout Int, iterate: (Int, DiffableViewSourceOperation) -> Void)
-    var viewContent: [View] { get }
+    var viewContent: [AltView] { get }
 }
 
 protocol ViewGrouper {
-    var viewContent: [View] { get }
+    var viewContent: [AltView] { get }
 }

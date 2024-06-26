@@ -54,7 +54,7 @@ public struct ViewValues: AnimatedViewValuesHolder {
     var transition: AnyTransition?
     var onAppear: (() -> Void)?
     var onDisappear: (() -> Void)?
-    var mask: View?
+    var mask: AltView?
     var gestures: [ExecutableGesture]?
     var isTransformUpdate = false
     var geometry: Binding<GeometryProxy>?

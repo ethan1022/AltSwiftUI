@@ -18,15 +18,15 @@ import UIKit
 /// It's not recommended to use this view outside a `ScrollView` as there is no
 /// lazy loading benefit and there will be some extra overhead as compared to using a
 /// `HStack`.
-public struct LazyHStack: LazyStack, View {
+public struct LazyHStack: LazyStack, AltView {
     public var viewStore = ViewValues()
     
-    let viewContentBuilder: () -> View
+    let viewContentBuilder: () -> AltView
     let alignment: VerticalAlignment
     let spacing: CGFloat
     var noPropertiesStack: Stack
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
     var scrollAxis: Axis { .horizontal }
@@ -40,7 +40,7 @@ public struct LazyHStack: LazyStack, View {
     ///   - spacing: The vertical distance between subviews. If not specified,
     ///   the distance will be 0.
     ///   - content: A view builder that creates the content of this stack.
-    public init(alignment: VerticalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> View) {
+    public init(alignment: VerticalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> AltView) {
         noPropertiesStack = HStack(alignment: alignment, spacing: spacing, content: content)
         viewContentBuilder = content
         self.alignment = alignment

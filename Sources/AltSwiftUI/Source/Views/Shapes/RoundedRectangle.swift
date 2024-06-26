@@ -17,7 +17,7 @@ public struct RoundedRectangle: Shape {
     public var style = StrokeStyle()
     public var cornerRadius: CGFloat
     
-    public var body: View {
+    public var body: AltView {
         EmptyView()
     }
 
