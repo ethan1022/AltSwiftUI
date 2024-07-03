@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class EventCodeHandler {
     let handler: () -> Void
@@ -171,6 +172,12 @@ class ScreenViewController: UIViewController {
         if view.viewStore.tabBarHidden == true {
             vc.hidesBottomBarWhenPushed = true
         }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @available(iOS 13.0, *)
+    func navigateSwiftUIView(_ view: some View) {
+        let vc = UIHostingController(rootView: view)
         navigationController?.pushViewController(vc, animated: true)
     }
     

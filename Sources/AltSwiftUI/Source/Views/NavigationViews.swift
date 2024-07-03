@@ -171,12 +171,12 @@ public struct NavigationSwiftUILink: AltView {
     }
     
     let contentView: AltView
-    var destination: AnyView?
+    var destination: (any View)?
     var isActive: Binding<Bool>?
     
     public init(destination: AnyObject?, @ViewBuilder label: () -> AltView) {
         contentView = label().subViews.first ?? EmptyView()
-        if let destination = destination as? AnyView {
+        if let destination = destination as? (any View) {
             self.destination = destination
         }
     }
@@ -223,8 +223,8 @@ extension NavigationSwiftUILink: Renderable {
             if let isActive = self.isActive {
                 isActive.wrappedValue = true
             } else {
-                if let destination = self.destination as? AltView {
-                    context.rootController?.navigateToView(destination, context: context)
+                if let destination = self.destination {
+                    context.rootController?.navigateSwiftUIView(destination)
                 }
             }
         }) { () -> AltView in
