@@ -64,7 +64,7 @@ open class UIHostingController: UINavigationController {
      The TabView will cause the root controller to be recreated, so don't
      subclass a UIHostingController and replace it in the app's delegate.
      */
-    public static var customRootTabBarController = SwiftUITabBarController()
+    public static var customRootTabBarController = SwiftUITabBarController(nibName: nil, bundle: nil)
     private func setupNavigation() {
         delegate = self
         interactivePopGestureRecognizer?.delegate = self
